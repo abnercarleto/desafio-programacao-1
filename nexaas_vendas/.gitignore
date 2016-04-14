@@ -24,3 +24,5 @@ tags
 
 /public/uploads/*
 !/public/uploads/.gitkeep
+
+.byebug_history
