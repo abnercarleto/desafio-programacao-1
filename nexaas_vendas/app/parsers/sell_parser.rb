@@ -16,6 +16,7 @@ class SellParser
 
     @purchases = purchasers_from_sell(@sells)
     @merchants = merchants_from_sell(@sells)
+    @products = products_from_sell(@sells)
   end
 
   def purchasers_from_sell(sells)
@@ -32,6 +33,17 @@ class SellParser
       }
     end.uniq.map do |merchant|
       Merchant.find_or_create_by(name: merchant[:name], address: merchant[:address])
+    end
+  end
+
+  def products_from_sell(sells)
+    sells.map do |sell|
+      {
+       description: sell.item_description,
+       price: sell.item_price
+      }
+    end.uniq.map do |product|
+      Product.find_or_create_by(description: product[:description], price: product[:price])
     end
   end
 
