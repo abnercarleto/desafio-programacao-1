@@ -1,0 +1,7 @@
+nexaas_vendas:
+  container_name: nexaas_vendas
+  image: postgres:9.4.5
+  # volumes:
+  #   - ~/volumes/jhipster/JewerlyControl/dev-postgresql/:/var/lib/postgresql/
+  ports:
+    - "5432:5432"
