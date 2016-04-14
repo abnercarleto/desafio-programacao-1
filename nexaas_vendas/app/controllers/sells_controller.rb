@@ -1,8 +1,4 @@
 class SellsController < ApplicationController
-  def index
-    @sell_items = SellItem.all_realized
-  end
-
   def import
   end
 
@@ -13,8 +9,7 @@ class SellsController < ApplicationController
       file.write(uploaded_io.read)
     end
 
-    SellParser.new(file_name).parse
-
-    redirect_to action: :index
+    import_uuid = SellParser.new(file_name).parse
+    @summary = Summary.new(import_uuid)
   end
 end

@@ -1,6 +1,11 @@
 <h1>Vendas realizadas</h1>
 <br />
 
+<strong>Receita bruta total</strong><br />
+<%= @summary.total %>
+<br /><br />
+
+
 <table>
   <thead>
     <tr>
@@ -13,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @sell_items.each do |item| %>
+    <% @summary.sell_items.each do |item| %>
       <tr>
         <td><%= item.purchaser.name %></td>
         <td><%= item.product.description %></td>

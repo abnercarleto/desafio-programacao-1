@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414025316) do
+ActiveRecord::Schema.define(version: 20160414035532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 20160414025316) do
     t.integer  "merchant_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.text     "import_uuid"
   end
+
+  add_index "sell_items", ["import_uuid"], name: "index_sell_items_on_import_uuid", using: :btree
 
 end

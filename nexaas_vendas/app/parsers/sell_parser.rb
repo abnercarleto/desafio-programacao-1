@@ -14,6 +14,8 @@ class SellParser
       @sells << Sell.from_file_line(line)
     end
 
+    @import_uuid = SecureRandom.uuid
+
     save_sells
   end
 
@@ -23,12 +25,14 @@ class SellParser
       product = Product.find_or_create_by(description: sell.item_description, price: sell.item_price)
       merchant = Merchant.find_or_create_by(name: sell.merchant_name, address: sell.merchant_address)
 
-      sell_item = SellItem.new(purchase_count: sell.purchase_count)
+      sell_item = SellItem.new(purchase_count: sell.purchase_count, import_uuid: @import_uuid)
       sell_item.purchaser = purchaser
       sell_item.product = product
       sell_item.merchant = merchant
       sell_item.save
     end
+
+    @import_uuid
   end
 
   class SellParserError < StandardError
