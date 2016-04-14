@@ -14,36 +14,20 @@ class SellParser
       @sells << Sell.from_file_line(line)
     end
 
-    @purchases = purchasers_from_sell(@sells)
-    @merchants = merchants_from_sell(@sells)
-    @products = products_from_sell(@sells)
+    save_sells
   end
 
-  def purchasers_from_sell(sells)
-    sells.map(&:purchase_name).uniq.map do |purchase_name|
-      Purchaser.find_or_create_by(name: purchase_name)
-    end
-  end
+  def save_sells
+    @sells.each do |sell|
+      purchaser = Purchaser.find_or_create_by(name: sell.purchase_name)
+      product = Product.find_or_create_by(description: sell.item_description, price: sell.item_price)
+      merchant = Merchant.find_or_create_by(name: sell.merchant_name, address: sell.merchant_address)
 
-  def merchants_from_sell(sells)
-    sells.map do |sell|
-      {
-        name: sell.merchant_name,
-        address: sell.merchant_address
-      }
-    end.uniq.map do |merchant|
-      Merchant.find_or_create_by(name: merchant[:name], address: merchant[:address])
-    end
-  end
-
-  def products_from_sell(sells)
-    sells.map do |sell|
-      {
-       description: sell.item_description,
-       price: sell.item_price
-      }
-    end.uniq.map do |product|
-      Product.find_or_create_by(description: product[:description], price: product[:price])
+      sell_item = SellItem.new(purchase_count: sell.purchase_count)
+      sell_item.purchaser = purchaser
+      sell_item.product = product
+      sell_item.merchant = merchant
+      sell_item.save
     end
   end
 
