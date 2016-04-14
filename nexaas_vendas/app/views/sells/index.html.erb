@@ -1,2 +1,30 @@
-<h1>Sells#index</h1>
-<p>Find me in app/views/sells/index.html.erb</p>
+<h1>Vendas realizadas</h1>
+<br />
+
+<table>
+  <thead>
+    <tr>
+      <th>Purchaser name</th>
+      <th>Item description</th>
+      <th>Item price</th>
+      <th>Purchase count</th>
+      <th>Merchant address</th>
+      <th>Merchant name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sell_items.each do |item| %>
+      <tr>
+        <td><%= item.purchaser.name %></td>
+        <td><%= item.product.description %></td>
+        <td><%= item.product.price %></td>
+        <td><%= item.purchase_count %></td>
+        <td><%= item.merchant.address %></td>
+        <td><%= item.merchant.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+
+<%= link_to 'Importar vendas', controller: :sells, action: :import %>

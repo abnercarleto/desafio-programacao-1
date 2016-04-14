@@ -1,6 +1,9 @@
-<h1>Importar venda</h1>
+<h1>Importar vendas</h1>
 <%= form_tag({controller: 'sells', action: 'upload'}, method: 'post', multipart: true) do %>
   <%= label_tag(:tab_file, 'Arquivo tab') %> <br />
   <%= file_field_tag(:tab_file) %> <br /> <br />
   <%= submit_tag('Importar') %>
 <% end %>
+<br />
+
+<%= link_to 'Voltar', controller: :sells, action: :index %>

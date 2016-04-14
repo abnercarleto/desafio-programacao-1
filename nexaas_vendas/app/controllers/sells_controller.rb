@@ -1,5 +1,6 @@
 class SellsController < ApplicationController
   def index
+    @sell_items = SellItem.all_realized
   end
 
   def import
