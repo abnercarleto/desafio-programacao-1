@@ -1,0 +1,6 @@
+<h1>Importar venda</h1>
+<%= form_tag({controller: 'sells', action: 'upload'}, method: 'post', multipart: true) do %>
+  <%= label_tag(:tab_file, 'Arquivo tab') %> <br />
+  <%= file_field_tag(:tab_file) %> <br /> <br />
+  <%= submit_tag('Importar') %>
+<% end %>
