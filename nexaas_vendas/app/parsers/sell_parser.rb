@@ -14,6 +14,12 @@ class SellParser
     end
   end
 
+  def purchasers_from_sell(sells)
+    sells.map(&:purchase_name).uniq.map do |purchase_name|
+      Purchaser.find_or_create_by(name: purchase_name)
+    end
+  end
+
   class SellParserError < StandardError
   end
 end
